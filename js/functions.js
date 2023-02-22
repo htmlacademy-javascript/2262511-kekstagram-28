@@ -5,8 +5,19 @@
 // Строка длиннее 10 символов
 //имя_функции('проверяемая строка', 10); // false
 
-const stringLength = (string, length) => string <= length;
-stringLength ('проверяемая строка', 20);
+const checkStringLength = (string, length) => string.length <= length;
+
+const isPalindrom = (string) => {
+  const lowerString = string.toLowerCase();
+
+  let reverseString = '';
+
+  for (let i = lowerString.length - 1; i >= 0; i--) {
+    reverseString = reverseString + lowerString[i];
+  }
+
+  return reverseString === lowerString;
+};
 
 // Строка является палиндромом
 //имя_функции('топот'); // true
@@ -30,15 +41,19 @@ wordPalindrom (' Довод');
 //имя_функции('агент 007');           // 7
 //имя_функции('а я томат');           // NaN
 
-const numberFromString = (string) => {
+const getNumberFromString = (string) => {
   let result= '';
-   for (let i = 0; i < string.length; i++){
-    if (!Number.isNaN(parseInt (string.at(i),10)));
-    result += string.at(i);
 
+   for (let i = 0; i < string.length; i++) {
+     const character = string[i];
+
+      if ((character !== ' ') && !Number.isNaN(+character)) {
+        result = result + character;
+      }
    }
+
+   return (result.length > 0) ? Number(result) : NaN;
 }
-return parseInt (result, 10);
 
 // Добавочный символ использован один раз
 //имя_функции('1', 2, '0');      // '01'
@@ -55,11 +70,25 @@ return parseInt (result, 10);
 // Добавочные символы не использованы, исходная строка не изменена
 //имя_функции('qwerty', 4, '0'); // 'qwerty'
 
-const myPadStart = (string, minLength, pad) => {
-  const actualPad = minLength - string.length;
-  if (actualPad <= 0){
+const padStart = (string, minLength, extraLine) => {
+  if (string.length <= minLength) {
     return string;
   }
+
+  let result = string;
+
+  while(result.length < minLength) {
+    // '1', 2, '0'
+    const diffLength = minLength - result.length; // 1
+    const slicedExtraLine = extraLine.slice(0, diffLength); // '0'.slice(0, 1) --> '0'
+    console.log(slicedExtraLine, result)
+    result = slicedExtraLine + result; // 'weq' // 'wweq'
+  }
+
+
+
+  return result;
+  // return pad.slice(0, actualPad % pad.length) + pad.repeat (actualPad/pad.length) + string;
 }
-return pad.slice(0, actualPad % pad.length) +
-pad.repeat (actualPad/pad.length) + string;
+
+padStart('1', 2, '0');
