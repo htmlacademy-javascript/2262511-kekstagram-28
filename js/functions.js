@@ -1,8 +1,8 @@
 
 
-const checkStringLength = (string, length) => string.length <= length;
+export const checkStringLength = (string, length) => string.length <= length;
 
-const wordPalindrom = (string) => {
+export const wordPalindrom = (string) => {
   const lowerString = string.toLowerCase();
   let reverseString = '';
   for (let i = lowerString.length - 1; i >= 0; i --){
@@ -10,10 +10,9 @@ const wordPalindrom = (string) => {
   }
   return lowerString === reverseString;
 };
-wordPalindrom ('Довод');
 
 
-const getNumberFromString = (string) => {
+export const getNumberFromString = (string) => {
   let result = '';
   for (let i = 0; i < string.length; i++) {
     const character = string[i];
@@ -23,7 +22,7 @@ const getNumberFromString = (string) => {
   }
   return (result.length > 0) ? Number(result) : NaN;
 };
-const padStart = (string, minLength, extraLine) => {
+export const padStart = (string, minLength, extraLine) => {
   if (string.length >= minLength) {
     return string;
   }
@@ -35,4 +34,4 @@ const padStart = (string, minLength, extraLine) => {
   }
   return string;
 };
-padStart('1', 2, '0');
+
