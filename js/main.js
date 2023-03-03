@@ -52,9 +52,8 @@ const createPublishedPhoto = (items) => items[getRandomInteger(0, items.length -
 
 const createComment = () => ({
   id: generateCommentId(),
-  url: `photos/${ generatePhotoId() }.jpg`,
+  avatar: `img/avatar${ generatePhotoId() }.jpg`,
   message: createPublishedPhoto(MESSAGES),
-  likes: getRandomInteger(15, 200),
   name: getRandomInteger(NAMES),
 });
 
