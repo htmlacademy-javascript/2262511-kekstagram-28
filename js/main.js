@@ -1,4 +1,4 @@
-const NAME = [
+const NAMES = [
   'Иван',
   'Дарья',
   'Джони',
@@ -8,7 +8,18 @@ const NAME = [
   'Эдик',
   'Зоя',
 ];
-const MESSAGE = [
+
+const DESCRIPTIONS = [
+  'Без фильтров',
+  'Была хорошая погода',
+  'Море волнуется раз!',
+  'Звездное небо',
+  'Вот такие пироги',
+  'Дураки, дороги...',
+  'Дело было вечером',
+];
+
+const MESSAGES = [
   'Всё отлично!',
   'Как можно было поймать такой неудачный момент?!',
   'В конце концов это просто непрофессионально.',
@@ -16,7 +27,8 @@ const MESSAGE = [
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра.',
   'Лица у людей на фотке перекошены, как будто их избивают.',
 ];
-export const SIMILAR_COMMENTS_COUNT = 25;
+
+export const PUBLISHED_PHOTO_COUNT = 25;
 function getRandomInteger (min, max) {
   const lower = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
   const upper = Math.floor(Math.max(Math.abs(min), Math.abs(max)));
@@ -30,28 +42,30 @@ function createIdGenerator () {
     return lastGeneratedId;
   };
 }
+
 const generatePhotoId = createIdGenerator();
 const generateCommentId = createIdGenerator();
-const getRandomItem = (items) => items[getRandomInteger(0, items.length - 1)];
-export const createComment = () => ({
+const createPublishedPhoto = (items) => items[getRandomInteger(0, items.length - 1)];
+
+const commentsMin = 1;
+const commentsMax = 25;
+const createComment = () => ({
+  id: generateCommentId(),
+  url: `photos/${ generatePhotoId() }.jpg`,
+  message: createPublishedPhoto(MESSAGES),
+  likes: getRandomInteger(15, 200),
+  name: getRandomInteger(NAMES),
+});
+
+export const createUserPost = () => ({
   id: generatePhotoId(1, 25),
   url: `photos/${ generatePhotoId() }.jpg`,
-  description: 'Без фильтров',
+  description: createPublishedPhoto(DESCRIPTIONS),
   likes:  getRandomInteger(15, 200),
-  comments: [
-    {
-      id:generateCommentId (),
-      avatar:`img/avatar${ generatePhotoId(1, 6) }.svg`,
-      message:getRandomItem(MESSAGE),
-      name:getRandomItem(NAME),
-    },
-    {
-      id:generateCommentId (),
-      avatar:`img/avatar${ generatePhotoId(1, 6) }.svg`,
-      message:getRandomItem(MESSAGE),
-      name: getRandomItem(NAME),
-    }
-  ],
+  comments: Array.from(
+    {length: getRandomInteger(commentsMin, commentsMax)},
+    createComment()
+  ),
 });
 
 
