@@ -28,7 +28,10 @@ const MESSAGES = [
   'Лица у людей на фотке перекошены, как будто их избивают.',
 ];
 
+const COMMENTS_MIN = 1;
+const COMMENTS_MAX = 25;
 export const PUBLISHED_PHOTO_COUNT = 25;
+
 function getRandomInteger (min, max) {
   const lower = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
   const upper = Math.floor(Math.max(Math.abs(min), Math.abs(max)));
@@ -47,8 +50,6 @@ const generatePhotoId = createIdGenerator();
 const generateCommentId = createIdGenerator();
 const createPublishedPhoto = (items) => items[getRandomInteger(0, items.length - 1)];
 
-const commentsMin = 1;
-const commentsMax = 25;
 const createComment = () => ({
   id: generateCommentId(),
   url: `photos/${ generatePhotoId() }.jpg`,
@@ -63,8 +64,8 @@ export const createUserPost = () => ({
   description: createPublishedPhoto(DESCRIPTIONS),
   likes:  getRandomInteger(15, 200),
   comments: Array.from(
-    {length: getRandomInteger(commentsMin, commentsMax)},
-    createComment()
+    {length: getRandomInteger(COMMENTS_MIN, COMMENTS_MAX)},
+    createComment
   ),
 });
 
