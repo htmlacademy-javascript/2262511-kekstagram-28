@@ -31,28 +31,36 @@ const MESSAGES = [
   'Лица у людей на фотке перекошены, как будто их избивают.',
 ];
 
-const COMMENTS_MIN = 1;
-const COMMENTS_MAX = 25;
+const COUNT_MIN = 1;
+const COUNT_MAX = 25;
 export const PUBLISHED_PHOTO_COUNT = 25;
 
 const generatePhotoId = createIdGenerator();
 const generateCommentId = createIdGenerator();
+const generateAvatar = createIdGenerator();
+const generateUrl = createIdGenerator();
 const createPublishedPhoto = (items) => items[getRandomInteger(0, items.length - 1)];
 
 const createComment = () => ({
   id: generateCommentId(),
-  avatar: `img/avatar${ generatePhotoId() }.jpg`,
+  avatar: `img/avatar${ generateAvatar() }.jpg`,
   message: createPublishedPhoto(MESSAGES),
   name: getRandomInteger(NAMES),
 });
 
-export const createUserPost = () => ({
-  id: generatePhotoId(1, 25),
-  url: `photos/${ generatePhotoId() }.jpg`,
+const createUserPost = () => ({
+  id: generatePhotoId(COUNT_MIN, COUNT_MAX),
+  url: `photos/${ generateUrl(1, 25) }.jpg`,
   description: createPublishedPhoto(DESCRIPTIONS),
   likes:  getRandomInteger(15, 200),
   comments: Array.from(
-    {length: getRandomInteger(COMMENTS_MIN, COMMENTS_MAX)},
-    createComment
+    {length: getRandomInteger(COUNT_MIN, COUNT_MAX)},
+    createComment,
   ),
 });
+
+export const createPictureArray = () => Array.from({length:PUBLISHED_PHOTO_COUNT},
+  createUserPost,
+);
+
+
