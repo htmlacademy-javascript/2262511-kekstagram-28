@@ -42,15 +42,15 @@ const generateUrl = createIdGenerator();
 const createPublishedPhoto = (items) => items[getRandomInteger(0, items.length - 1)];
 
 const createComment = () => ({
-  id: generateCommentId(),
-  avatar: `img/avatar${ generateAvatar() }.jpg`,
+  id: generateCommentId,
+  avatar: `img/avatar${ generateAvatar }.jpg`,
   message: createPublishedPhoto(MESSAGES),
   name: getRandomInteger(NAMES),
 });
 
 const createUserPost = () => ({
   id: generatePhotoId(COUNT_MIN, COUNT_MAX),
-  url: `photos/${ generateUrl(1, 25) }.jpg`,
+  url: `photos/${ generateUrl(COUNT_MIN, COUNT_MAX) }.jpg`,
   description: createPublishedPhoto(DESCRIPTIONS),
   likes:  getRandomInteger(15, 200),
   comments: Array.from(
