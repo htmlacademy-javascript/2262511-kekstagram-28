@@ -6,7 +6,9 @@ const pictureContainer = document.querySelector('.pictures');
 
 const createThumbnails = ({url, description, comments, likes}) => {
   const userPicture = templatePicture.cloneNode(true);
-  userPicture.querySelector('.picture__img').src = url;
+  const picture = userPicture.querySelector('.picture__img');
+  picture.alt = description;
+  picture.src = url;
   userPicture.querySelector('.picture__comments').textContent = comments.length;
   userPicture.querySelector('.picture__likes').textContent = likes;
   userPicture.querySelector('.picture__img').alt = description;

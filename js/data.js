@@ -35,7 +35,7 @@ const COUNT_MIN = 1;
 const COUNT_MAX = 25;
 const COUNT_LIKES_MIN = 15;
 const COUNT_LIKES_MAX = 200;
-export const PUBLISHED_PHOTO_COUNT = 25;
+const PUBLISHED_PHOTO_COUNT = 25;
 
 const generatePhotoId = createIdGenerator();
 const generateCommentId = createIdGenerator();
