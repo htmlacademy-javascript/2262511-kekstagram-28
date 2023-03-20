@@ -1,27 +1,26 @@
-const templatePicture = document
-  .querySelector('#picture')
-  .content.querySelector('.picture');
-const pictureContainer = document.querySelector('.pictures');
 
+import {createPictureArray} from './data.js';
 
-const createThumbnails = ({url, description, comments, likes}) => {
-  const userPicture = templatePicture.cloneNode(true);
-  const picture = userPicture.querySelector('.picture__img');
-  picture.alt = description;
-  picture.src = url;
-  userPicture.querySelector('.picture__comments').textContent = comments.length;
-  userPicture.querySelector('.picture__likes').textContent = likes;
-  userPicture.querySelector('.picture__img').alt = description;
+const listPictures = document.querySelector('.pictures');
+const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
+const listPicturesFragment = document.createDocumentFragment();
 
-  return userPicture;
-};
+export const similarPublishPhoto = createPictureArray(25);
 
-export const renderThumbnails = (pictures) => {
-  const fragment = document.createDocumentFragment();
-  pictures.forEach((picture) => {
-    const userPicture = createThumbnails (picture);
-    fragment.append(userPicture);
-  });
-  pictureContainer.append(fragment);
+similarPublishPhoto.forEach(({url, description, comments, likes, id}) => {
+  const thumbnail = pictureTemplate.cloneNode(true);
+  thumbnail.querySelector('.picture__img').src = url;
+  thumbnail.querySelector('.picture__img').textContent = description;
+  thumbnail.querySelector('.picture__comments').textContent = comments.length;
+  thumbnail.querySelector('.picture__likes').textContent = likes;
+  thumbnail.dataset.thumbnailId = id;
+  listPicturesFragment.appendChild(thumbnail);
+
+  return thumbnail;
+
+});
+
+export const renderThumbnails = () => {
+  listPictures.appendChild(listPicturesFragment);
 };
 

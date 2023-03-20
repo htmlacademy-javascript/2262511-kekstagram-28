@@ -11,3 +11,4 @@ export function createIdGenerator () {
     return lastGeneratedId;
   };
 }
+export const isEscapeKey = (evt) => evt.key === 'Escape';
