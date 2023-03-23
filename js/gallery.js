@@ -1,7 +1,5 @@
 import {showBigPicture} from './big-picture.js';
-import {renderThumbnails} from './thumbnails.js';
-import {PUBLISHED_PHOTO_COUNT} from './data.js';
-
+import {renderThumbnails, similarPublishPhoto} from './thumbnails.js';
 
 const container = document.querySelector('.pictures');
 
@@ -11,7 +9,7 @@ export const renderGallery = () => {
     if (!thumbnail) {
       return;
     }
-    const picture = PUBLISHED_PHOTO_COUNT.find(
+    const picture = similarPublishPhoto.find(
       (item) => item.id === Number(thumbnail.dataset.thumbnailId)
     );
     showBigPicture(picture);
