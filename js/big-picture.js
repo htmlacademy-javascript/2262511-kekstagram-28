@@ -7,11 +7,14 @@ const commentCount = bigPicture.querySelector('.social__comment-count');
 const commentLoader = bigPicture.querySelector('.comments-loader');
 const userModalCloseElement = bigPicture.querySelector('.cancel');
 const body = document.querySelector('body');
+const urlPicture = bigPicture.querySelector('.big-picture__img img');
+const captionPicture = bigPicture.querySelector('.social__caption');
+const likesPicture = bigPicture.querySelector('.likes-count');
 
 const renderAvatarComment = ({url, description, likes}) => {
-  bigPicture.querySelector('.big-picture__img img').src = url;
-  bigPicture.querySelector('.social__caption').textContent = description;
-  bigPicture.querySelector('.likes-count').textContent = likes;
+  urlPicture.src = url;
+  captionPicture.textContent = description;
+  likesPicture.textContent = likes;
 };
 
 const renderComments = (comments) => {

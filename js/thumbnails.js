@@ -1,5 +1,6 @@
 
-import {PUBLISHED_PHOTO_COUNT} from './data.js';
+import {createPictureArray, PUBLISHED_PHOTO_COUNT} from './data.js';
+
 
 const templatePicture = document
   .querySelector('#picture')
@@ -7,7 +8,8 @@ const templatePicture = document
 const pictureContainer = document.querySelector('.pictures');
 const templatePictureFragment = document.createDocumentFragment();
 
-export const similarPublishPicture = PUBLISHED_PHOTO_COUNT;
+export const similarPublishPicture = createPictureArray(PUBLISHED_PHOTO_COUNT);
+
 similarPublishPicture.forEach(({url, description, comments, likes, id}) => {
   const thumbnail = templatePicture.cloneNode(true);
   thumbnail.querySelector('.picture__img').src = url;
