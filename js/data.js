@@ -35,34 +35,31 @@ const COUNT_MIN = 1;
 const COUNT_MAX = 25;
 const COUNT_LIKES_MIN = 15;
 const COUNT_LIKES_MAX = 200;
-const PUBLISHED_PHOTO_COUNT = 25;
+export const PUBLISHED_PHOTO_COUNT = 25;
 
 const generatePhotoId = createIdGenerator();
 const generateCommentId = createIdGenerator();
-const generateAvatar = createIdGenerator();
 const generateUrl = createIdGenerator();
 const createPublishedPhoto = (items) => items[getRandomInteger(0, items.length - 1)];
 
 const createComment = () => ({
   id: generateCommentId(),
-  avatar: `img/avatar${ generateAvatar() }.jpg`,
+  avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
   message: createPublishedPhoto(MESSAGES),
   name: getRandomInteger(NAMES),
 });
 
 const createUserPost = () => ({
   id: generatePhotoId(),
-  url: `photos/${ generateUrl () }.jpg`,
+  url: `photos/${generateUrl()}.jpg`,
   description: createPublishedPhoto(DESCRIPTIONS),
-  likes:  getRandomInteger(COUNT_LIKES_MIN, COUNT_LIKES_MAX),
+  likes: getRandomInteger(COUNT_LIKES_MIN, COUNT_LIKES_MAX),
   comments: Array.from(
     {length: getRandomInteger(COUNT_MIN, COUNT_MAX)},
-    createComment,
-  ),
+    createComment),
 });
 
 export const createPictureArray = () => Array.from({length:PUBLISHED_PHOTO_COUNT},
-  createUserPost,
-);
+  createUserPost);
 
 
