@@ -10,12 +10,18 @@ const body = document.querySelector('body');
 const urlPicture = bigPicture.querySelector('.big-picture__img img');
 const captionPicture = bigPicture.querySelector('.social__caption');
 const likesPicture = bigPicture.querySelector('.likes-count');
+const SHOW_COMMENT_STEP = 5;
+const commentNumber = SHOW_COMMENT_STEP;
 
-const renderAvatarComment = ({url, description, likes}) => {
+commentLoader.classList.add('hidden');
+commentCount.classList.add('hidden');
+
+const renderDataBigPicture = ({url, description, likes}) => {
   urlPicture.src = url;
   captionPicture.textContent = description;
   likesPicture.textContent = likes;
 };
+
 
 const renderComments = (comments) => {
   commentList.innerHTML = '';
@@ -28,17 +34,17 @@ const renderComments = (comments) => {
   });
 };
 
-const showComments = (comments) => {
-  const commentNumber = 5;
-  const createSpanElement = document.createElement('span');
-  createSpanElement.classList.add('.comments-count');
-  createSpanElement.textContent = commentCount;
+const createCommentsCount = (count) => {
+  const commentsCount = document.createElement('span');
+  commentsCount.classList.add('.comments-count');
+  commentsCount.textContent = count;
+  return commentsCount;
+};
 
-  if(comments.length <= commentNumber) {
-    commentCount.append(`${commentList.children.length} из`, createSpanElement, `${commentList.children.length} комментариев`);
-    commentLoader.classList.add('hidden');
-    commentCount.classList.add('hidden');
-  }
+const updateCommentsCount = (comments) => {
+  const commentsCount = createCommentsCount(comments.length);
+  commentCount.innerHTML = '';
+  commentCount.append(`${Math.min(commentNumber,comments.length)} из `, commentsCount, ' комментариев');
 };
 
 const onDocumentEscapeKeydown = (evt) => {
@@ -58,13 +64,12 @@ userModalCloseElement.addEventListener('click', closeUserModal);
 
 export const showBigPicture = (data) => {
   renderComments(data.comments);
-  renderAvatarComment(data);
-  showComments(data.comments);
+  renderDataBigPicture(data);
+  updateCommentsCount(data.comments);
   bigPicture.classList.remove('hidden');
   body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentEscapeKeydown);
-  commentCount.classList.remove('hidden');
-  commentLoader.classList.remove('hidden');
+
 };
 
 
